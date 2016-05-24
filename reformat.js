@@ -8,10 +8,20 @@ $(document).ready (	() =>
 			}
 		);*/
 		
+		new Clipboard('.copy');
+		
 		$('textarea#inputTextarea').on("propertychange input change keyup paste click", 
 			function() 
 			{
 				$('textarea#outputTextarea').val(GetTransformedText());
+				$('div#copy-tooltip').text("Copy to clipboard");
+			}
+		);
+		
+		$('button#copy').click(
+			function()
+			{
+				$('div#copy-tooltip').text("Copied");
 			}
 		);
 	}
