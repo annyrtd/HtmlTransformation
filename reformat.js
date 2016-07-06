@@ -2,14 +2,6 @@ var HTMLToJScript = true;
 
 $(document).ready (	() =>
 	{
-		/*
-		$('button#transform').click(
-			function()
-			{
-				$('textarea#outputTextarea').val(GetTransformedText());
-			}
-		);*/
-		
 		new Clipboard('.copy');
 		
 		$("#arrowButton").click(
@@ -106,40 +98,36 @@ function GetTransformedTextToHTML()
 	{
 		return "";
 	}
-	var properLine, newTxt = "";
 	var lines = txt.split("\n");
-	newTxt = GetProperLineToHTML(lines[0].replace(/var str =/g, "")) + "\n";
+	var current = "", newTxt = GetProperLineToHTML(lines[0]);
 	var numberOfTabs = 0;
 	var previous = newTxt;
-	for (var i = 1; i < lines.length - 1; i++)
+	
+	for (var i = 1; i < lines.length; i++)
 	{	
-		properLine = GetProperLineToHTML(lines[i]);
-		numberOfTabs += GetNumberOfTabs(previous, properLine);
+		current = GetProperLineToHTML(lines[i]);
+		numberOfTabs += GetNumberOfTabs(previous, current);
 		
-		if (properLine.length > 0)
+		if (current.length > 0)
 		{
-			newTxt += GetTabs(numberOfTabs) + properLine + "\n";
+			newTxt += "\n" + GetTabs(numberOfTabs) + current;
 		}
 		
-		previous = properLine;
+		previous = current;
 	}
-	
-	properLine = GetProperLineToHTML(lines[i], true);
-	newTxt += properLine;	
-	
 	return newTxt;
 }
 
-function GetProperLineToHTML(string, isLast)
+function GetProperLineToHTML(string)
 {
-	var newString = string.substring(2, string.length - 2);
-	if (isLast === undefined || !isLast)
+	var firstIndex = string.indexOf("\"");
+	var lastIndex = string.lastIndexOf("\"");
+	var newString = string;
+	if ((firstIndex > 0 || lastIndex > 0) && (firstIndex != lastIndex))
 	{
-		newString = newString.substring(0, newString.length - 1);
+		newString = newString.substring(firstIndex + 1, lastIndex);
 	}
 	newString = newString.replace(/\\\"/g, "\"");
-	
-
 	return newString;	
 }
 
