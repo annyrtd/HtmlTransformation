@@ -13,34 +13,35 @@
 	</head> 
 	<body>
 		<div class="transformArea">
-			<h2>
+			<h1>
 				HTML
-			</h2>
+			</h1>
 			<button id="arrowButton" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
 				<i class="material-icons">arrow_forward</i>
 			</button>
-			<h2>
+			<div class="mdl-tooltip mdl-tooltip--bottom" for="arrowButton">Change direction <br>of transforming</div>
+			<h1>
 				JScript
-			</h2>
-		</div>
-		<div class="textareaDiv">
-			<h1>HTML:
-				<button data-clipboard-target="#inputTextarea" id="copy-input" class="copy mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-					<i class="material-icons">content_copy</i>
-				</button>
 			</h1>
-			<div id="copy-tooltip-input" class="mdl-tooltip mdl-tooltip--right" for="copy-input">Copy to clipboard</div>
-			<textarea rows="14" cols="100" id="inputTextarea"></textarea>
-			<br>
 		</div>
-		<div class="textareaDiv">
-			<h1>JScript lines:
-				<button data-clipboard-target="#outputTextarea" id="copy-output" class="copy mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-					<i class="material-icons">content_copy</i>
-				</button>
-			</h1>
-			<div id="copy-tooltip-output" class="mdl-tooltip mdl-tooltip--right" for="copy-output">Copy to clipboard</div>
-			<textarea rows="14" cols="100" id="outputTextarea"></textarea>
+		<div class="transformArea">
+			<div class="textareaDiv">
+				<h1>HTML<button data-clipboard-target="#inputTextarea" id="copy-input" class="copy mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+						<i class="material-icons">content_copy</i>
+					</button>
+				</h1>
+				<div id="copy-tooltip-input" class="mdl-tooltip mdl-tooltip--right" for="copy-input">Copy to clipboard</div>
+				<textarea rows="14" cols="100" id="inputTextarea"></textarea>
+				<br>
+			</div>
+			<div class="textareaDiv">
+				<h1>JScript lines<button data-clipboard-target="#outputTextarea" id="copy-output" class="copy mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+						<i class="material-icons">content_copy</i>
+					</button>
+				</h1>
+				<div id="copy-tooltip-output" class="mdl-tooltip mdl-tooltip--right" for="copy-output">Copy to clipboard</div>
+				<textarea rows="14" cols="100" id="outputTextarea"></textarea>
+			</div>
 		</div>		
 	</body>
 </html>
