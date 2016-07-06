@@ -5,10 +5,27 @@
 
 .textareaDiv
 {
-	padding: 16px;
+	padding: 0px 16px;
 }
 
 button.copy
 {
 	margin: 0px 40px;
+}
+
+.transformArea
+{
+	display: flex; 
+	align-items: center;
+	padding: 8px 16px;	
+}
+
+h2
+{
+	margin: 0px !important;
+}
+
+.mdl-button--fab
+{
+	margin: 0px 16px !important;
 }
