@@ -143,11 +143,11 @@ function GetTabs(number)
 
 function GetNumberOfTabs(previous, current)
 {
-	var negative = (previous.match(/<\//g) || []).length + (previous.match(/\/>/g) || []).length;
+	var negative = (previous.match(/<\//g) || []).length + (previous.match(/\/>/g) || []).length + (previous.match(/<br>/g) || []).length;
 	var positive = (previous.match(/<[^!\/]/g) || []).length;
 	if (current.substring(0,2) == "<\/" || current.substring(0,2) == "<!")
 		negative++;
-	if (previous.substring(0,2) == "<\/")
+	if (previous.substring(0,2) == "<\/" )
 		positive++;
 	return positive - negative;
 }
