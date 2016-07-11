@@ -145,17 +145,17 @@
 				}
 			},
 			
-			setContent: function(txt) {
-				var content = ( this.state.HTMLToJScript ? GetTransformedTextToJScript(txt) : GetTransformedTextToHTML(txt) );		
+			setContent: function(content) {
 				this.setState({ content: content });
 			},
 			
 			toggle: function() {	
 				this.setState({ 
 					HTMLToJScript: !this.state.HTMLToJScript,
-					buttonType: ( this.state.buttonType == 'arrow_forward'? 'arrow_back' : 'arrow_forward' )
+					buttonType: ( this.state.buttonType == 'arrow_forward'? 'arrow_back' : 'arrow_forward' ),
 				});
-				// this.setContent(this.state.content);
+				// The state updates are batched, so we can call the special function to manage the 'content' part of the state
+				this.setContent( this.state.HTMLToJScript ? GetTransformedTextToJScript(this.state.content) : GetTransformedTextToHTML(this.state.content));
 			},
 			
 			render: function() {
@@ -163,8 +163,8 @@
 				var textarea1_changeHandler = (this.state.HTMLToJScript ? this.setContent : undefined );
 				var textarea2_changeHandler = (!this.state.HTMLToJScript ? this.setContent : undefined );
 				
-				var textarea1_value = (!this.state.HTMLToJScript ? this.state.content : undefined );
-				var textarea2_value = (this.state.HTMLToJScript ? this.state.content : undefined );
+				var textarea1_value = ( !this.state.HTMLToJScript ? GetTransformedTextToHTML(this.state.content) : this.state.content );
+				var textarea2_value = ( this.state.HTMLToJScript ? GetTransformedTextToJScript(this.state.content) : this.state.content );
 				
 				var textarea1_comment = "";
 				var textarea2_comment = this.state.HTMLToJScript ? "" : "Please input text in format: <br>\"HTML\" + <br>\"HTML\" + <br>...";	
