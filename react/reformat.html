@@ -129,7 +129,7 @@
 									null
 								} 
 							} 
-							value={ this.props.value } > </textarea>
+							value={ this.props.value } ></textarea>
 					</div>
 				);
 			},
@@ -167,7 +167,8 @@
 				var textarea2_value = ( this.state.HTMLToJScript ? GetTransformedTextToJScript(this.state.content) : this.state.content );
 				
 				var textarea1_comment = "";
-				var textarea2_comment = this.state.HTMLToJScript ? "" : "Please input text in format: <br>\"HTML\" + <br>\"HTML\" + <br>...";	
+				var textarea2_comment = this.state.HTMLToJScript ? "" : "Please input text in format:<br><span class='important'>\"</span>" +
+																		"HTML<span class='important'>\" + &#8626;<br>\"</span>HTML<span class='important'>\" + &#8626;</span><br>...";	
 			
 				return  (
 					<div>

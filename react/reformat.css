@@ -41,3 +41,9 @@ h2
 	padding: 8px;
 	letter-spacing: normal !important;
 }
+
+.important
+{
+	color: #CD1A18;
+	font-weight: bold;
+}
