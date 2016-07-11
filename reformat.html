@@ -38,6 +38,17 @@
 				<h1>JScript lines<button data-clipboard-target="#outputTextarea" id="copy-output" class="copy mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
 						<i class="material-icons">content_copy</i>
 					</button>
+					<div style="display:none;" class="comment">
+						Please input text in format:
+						<br>
+						<span class='important'>"</span>
+						HTML
+						<span class='important'>" + &#8626;<br>"</span>
+						HTML
+						<span class='important'>" + &#8626;</span>
+						<br>
+						...;
+					</div>				
 				</h1>
 				<div id="copy-tooltip-output" class="mdl-tooltip mdl-tooltip--right" for="copy-output">Copy to clipboard</div>
 				<textarea rows="14" cols="100" id="outputTextarea"></textarea>

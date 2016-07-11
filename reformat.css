@@ -29,3 +29,16 @@ h2
 {
 	margin: 0px 16px !important;
 }
+
+.comment {
+	background-color: #FAFAFA;
+	font-size: 10px;
+	padding: 8px;
+	letter-spacing: normal !important;
+}
+
+.important
+{
+	color: #CD1A18;
+	font-weight: bold;
+}

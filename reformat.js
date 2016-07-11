@@ -13,12 +13,14 @@ $(document).ready (	() =>
 					$(this).children("i").text("arrow_back");
 					$('textarea#inputTextarea').val(GetTransformedTextToHTML());
 					$('div#copy-tooltip-input').text("Copy to clipboard");
+					$('div.comment').css('display', 'inline-block');
 				}
 				else
 				{
 					$(this).children("i").text("arrow_forward");
 					$('textarea#outputTextarea').val(GetTransformedTextToJScript());
 					$('div#copy-tooltip-output').text("Copy to clipboard");
+					$('div.comment').css('display', 'none');
 				}
 			}
 		);
