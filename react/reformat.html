@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>File Reformatting</title>
+		
+		<script src="https://fb.me/react-15.1.0.js"></script>
+		<script src="https://fb.me/react-dom-15.1.0.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+		
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+		<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-amber.min.css" />
+		<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+		
+		<link rel="stylesheet" href="reformat.css" />
+		
+		<script src="clipboard.min.js"></script>
+		<script src="reformat.js"></script>	
+		
+	</head> 
+	<body>
+		<div id="container">
+		</div>			
+	</body>
+	<script type="text/babel"> 
+
+		function getValue(value, defaultValue="") {
+			return (value ? value : defaultValue);
+		}
+	
+		var Header1 = React.createClass({		
+			render: function() {	
+			
+				var button = ( this.props.button ? this.props.button : "" );
+				var text = ( this.props.text ? this.props.text : "" );
+				
+				return (
+					<h1>{ text }{ button }</h1>
+				);			
+			}		
+		});
+		
+		var Button = React.createClass({
+			render: function() {
+			
+				var id = getValue(this.props.id);
+				var className = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect " + getValue(this.props.className);
+				var buttonType = getValue(this.props.buttonType);
+				var dataTarget = getValue(this.props.dataTarget);
+				var onClick = getValue(this.props.onClick);
+				
+				return (
+					<button id={ id } className={ className } data-clipboard-target={ dataTarget } onClick={ onClick } >
+						<i className="material-icons">{ buttonType }</i>
+					</button>
+				);
+				
+			}		
+		});
+		
+		var Tooltip = React.createClass({		
+			render: function() {
+			
+				var id = getValue(this.props.id);
+				var direction = getValue(this.props.direction, "top");
+				var className = "mdl-tooltip mdl-tooltip--" + direction;
+				var htmlFor = getValue(this.props.htmlFor);
+				var text = getValue(this.props.text);
+			
+				return (
+					<div id={ id } className={ className } htmlFor={ htmlFor }>{ text }</div>
+				);
+				
+			}		
+		});
+		
+		var TextareaDiv = React.createClass({	
+
+			getInitialState: function() {
+				return {
+					tooltipText: "Copy to clipboard",
+				}
+			}, 
+			
+			setCopied: function() {
+				this.setState({ tooltipText: "Copied" });
+				if (this.myTextArea !== null) {
+					this.myTextArea.blur();
+				}
+			},
+			
+			setFocus: function() {
+				this.setState({ tooltipText: "Copy to clipboard" });
+			},
+				
+			render: function() {
+				
+				var self = this;
+				
+				var text = getValue(this.props.text);				
+				var type = getValue(this.props.type);
+				var comment = getValue(this.props.comment);
+				var idButton = "copy-" + type;
+				var classNameButton = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored copy";				
+				var dataTarget = "#" + type + "Textarea";	
+				
+				var buttonType = "content_copy";
+				
+				var idTooltip = "copy-tooltip-" + type;				
+				var classNameTooltip = "mdl-tooltip mdl-tooltip--right";
+				
+				var idTextArea = type + "Textarea";
+				
+				
+				
+				return (
+					<div className="textareaDiv">
+						<h1>{ text }<button id={ idButton } className={ classNameButton } data-clipboard-target={ dataTarget } onClick={ this.setCopied } >
+								<i className="material-icons">{ buttonType }</i>
+							</button>
+							<div id={ idTooltip } className={ classNameTooltip } htmlFor={ idButton }>{ this.state.tooltipText }</div>
+							<div style={{display: (comment ? 'inline-block' : 'none' )}} className="comment" dangerouslySetInnerHTML={{__html: comment}} ></div>
+						</h1>							
+						<textarea rows="14" cols="100" id={ idTextArea } onFocus={ this.setFocus }  ref={ (ref) => this.myTextArea = ref } 
+							onChange={ 
+								function(e) { 
+									self.props.changeHandler ?
+									self.props.changeHandler(e.target.value):
+									null
+								} 
+							} 
+							value={ this.props.value } > </textarea>
+					</div>
+				);
+			},
+		});
+		
+			
+		var Container = React.createClass({	
+			getInitialState: function() {
+				return {
+					content: '',
+					HTMLToJScript: true,
+					buttonType: 'arrow_forward'
+				}
+			},
+			
+			setContent: function(txt) {
+				var content = ( this.state.HTMLToJScript ? GetTransformedTextToJScript(txt) : GetTransformedTextToHTML(txt) );		
+				this.setState({ content: content });
+			},
+			
+			toggle: function() {	
+				this.setState({ 
+					HTMLToJScript: !this.state.HTMLToJScript,
+					buttonType: ( this.state.buttonType == 'arrow_forward'? 'arrow_back' : 'arrow_forward' )
+				});
+				// this.setContent(this.state.content);
+			},
+			
+			render: function() {
+				
+				var textarea1_changeHandler = (this.state.HTMLToJScript ? this.setContent : undefined );
+				var textarea2_changeHandler = (!this.state.HTMLToJScript ? this.setContent : undefined );
+				
+				var textarea1_value = (!this.state.HTMLToJScript ? this.state.content : undefined );
+				var textarea2_value = (this.state.HTMLToJScript ? this.state.content : undefined );
+				
+				var textarea1_comment = "";
+				var textarea2_comment = this.state.HTMLToJScript ? "" : "Please input text in format: <br>\"HTML\" + <br>\"HTML\" + <br>...";	
+			
+				return  (
+					<div>
+						<div className="flexible">
+							<Header1 text="HTML" />
+							<Button  id="arrowButton" buttonType={ this.state.buttonType } onClick={ this.toggle } />
+							<Tooltip direction="bottom" htmlFor="arrowButton" text="Change direction of transforming" />
+							<Header1 text="JScript" />
+						</div>
+						<div className="flexible">
+							<TextareaDiv  text="HTML" type="input" changeHandler={ textarea1_changeHandler } value={ textarea1_value } comment={ textarea1_comment } />
+							<TextareaDiv  text="JScript lines" type="output" changeHandler={ textarea2_changeHandler } value={ textarea2_value } comment={ textarea2_comment } />
+						</div>	
+					</div>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			<Container />,
+			document.getElementById('container')
+		);
+	</script>
+</html>
