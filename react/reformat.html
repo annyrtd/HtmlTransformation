@@ -121,7 +121,7 @@
 							<div id={ idTooltip } className={ classNameTooltip } htmlFor={ idButton }>{ this.state.tooltipText }</div>
 							<div style={{display: (comment ? 'inline-block' : 'none' )}} className="comment" dangerouslySetInnerHTML={{__html: comment}} ></div>
 						</h1>							
-						<textarea rows="14" cols="100" id={ idTextArea } onFocus={ this.setFocus }  ref={ (ref) => this.myTextArea = ref } 
+						<textarea rows="14" id={ idTextArea } onFocus={ this.setFocus }  ref={ (ref) => this.myTextArea = ref } 
 							onChange={ 
 								function(e) { 
 									self.props.changeHandler ?

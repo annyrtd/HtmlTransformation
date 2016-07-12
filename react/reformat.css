@@ -3,8 +3,13 @@
 	font-family: Roboto, sans-serif;
 }
 
+textarea {
+	width: 100%;
+}
+
 .textareaDiv
 {
+	width: 50%;
 	padding-right: 16px;
 }
 
