@@ -1,0 +1,54 @@
+*
+{
+	font-family: Roboto, sans-serif;
+}
+
+textarea {
+	width: 100%;
+}
+
+.textareaDiv
+{
+	width: 50%;
+	padding-right: 16px;
+}
+
+button.copy
+{
+	margin: 0px 40px;
+}
+
+.flexible
+{
+	display: flex; 
+	align-items: center;
+	padding: 8px 16px;	
+}
+
+h2
+{
+	margin: 0px !important;
+}
+
+.mdl-button--fab
+{
+	margin: 0px 16px !important;
+}
+
+.mdl-tooltip 
+{
+	letter-spacing: normal !important;
+}
+
+.comment {
+	background-color: #FAFAFA;
+	font-size: 10px;
+	padding: 8px;
+	letter-spacing: normal !important;
+}
+
+.important
+{
+	color: #CD1A18;
+	font-weight: bold;
+}
